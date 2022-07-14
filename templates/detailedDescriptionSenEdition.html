@@ -1,0 +1,87 @@
+{%extends './base.html'%}
+{%block intStylesheets%}
+<link rel="stylesheet" href="/static/css/detailedDesc.css">{%endblock%}
+{%block title%}Detailed Description{%endblock%}
+
+{%block content%}
+<section>
+    <h1>Detailed Description (UID: {{ person.person_id }})</h1>
+
+    <div class="details text-center">
+        <div class="img-container">
+            <div>
+                <img src="{{ person.person_img.url }}" alt="Detected Person" class="person my-4">
+            </div>
+            {% if person.face_img %}
+            <div>
+                <img src="{{ person.face_img.url }}" alt="Detected Face" class="faceImage my-4">
+            </div>
+            {%endif%}
+        </div>
+        <div class="details-text">
+            <input type="hidden" id="dateTimeElement" value="{{person.date_time}}"/>
+            <i class="fa-solid fa-calendar-day"></i> {{ person.date_time.date }}
+            <i class="fa-solid fa-clock"></i> {{ person.date_time.time }}<br>
+            
+            <p id="relativeDateTimeId"></p>
+            <!-- Confidence score: {{ person.conf_score | truncatechars:5 }}</p> -->
+            <h4>Camera Details</h4>
+            Dept. of {{person.camera_id.dept}}
+            Location: {{person.camera_id.location}}
+            Name: {{person.camera_id.name}}
+            Camera IP Address{{person.camera_id}}
+        </div>
+    </div>
+
+    <a href="{% url 'get-all-persons' %}" class="btn btn-primary">Go back</a>
+
+
+    <script>
+        function relativeDate() {
+            var dateTimeTag = document.getElementById('dateTimeElement').value;
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            dateTimeTag = dateTimeTag.replaceAll(',', '')
+            dateTimeTag = dateTimeTag.split(' ')
+            let month = months.indexOf(String(dateTimeTag[0])) ;
+            let yr = Number(dateTimeTag[2]);
+            let date = Number(dateTimeTag[1]);
+            let time = dateTimeTag[3].split(':');
+            let amPM = dateTimeTag[4];
+            let hour = amPM==='a.m.' ? Number(time[0]) : Number(time[0])+12;
+            let mins = time[1];
+            var previous = new Date(yr, month, date, hour, mins, 0, 0);
+            var current = new Date(Date.now())
+            var msPerMinute = 60 * 1000;
+            var msPerHour = msPerMinute * 60;
+            var msPerDay = msPerHour * 24;
+            var msPerMonth = msPerDay * 30;
+            var msPerYear = msPerDay * 365;
+            var elapsed = Math.abs(current - previous);
+            let res;
+            if (elapsed < msPerMinute) {
+                res =  Math.round(elapsed / 1000) + ' seconds ago';
+            }
+            else if (elapsed < msPerHour) {
+                res =  Math.round(elapsed / msPerMinute) + ' minutes ago';
+            }
+            else if (elapsed < msPerDay) {
+                res =  Math.round(elapsed / msPerHour) + ' hours ago';
+            }
+            else if (elapsed < msPerMonth) {
+                res =  'approximately ' + Math.round(elapsed / msPerDay) + ' days ago';
+            }
+            else if (elapsed < msPerYear) {
+                res =  'approximately ' + Math.round(elapsed / msPerMonth) + ' months ago';
+            }
+            else {
+                res =  'approximately ' + Math.round(elapsed / msPerYear) + ' years ago';
+            }
+
+            let relativeDateTimeId = document.getElementById('relativeDateTimeId');
+            relativeDateTimeId.innerHTML = res;
+            return res;
+        }
+        relativeDate();
+    </script>
+</section>
+{%endblock%}

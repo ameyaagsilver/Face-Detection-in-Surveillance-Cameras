@@ -1,0 +1,26 @@
+{%extends '../base.html' %}
+
+{%block navLinks%}
+<li class="navigation-links"><a href="{%url 'new-cluster'%}">Add new Cluster</a></li>
+<li class="navigation-links"><a href="{%url 'new-camera'%}">Add new Camera</a></li>
+{%for dept in deptList%}
+<li class="navigation-links"><a href="{%url 'status-view' dept.name%}">{{dept.name}} Department</a></li>
+{%endfor%}
+<li class="navigation-links"><a href="{%url 'logout'%}">Logout</a></li>
+{%endblock%}
+
+{%block content%}
+<section>
+<h1>{{department}} Department Cameras</h1>
+<div class="camera-status-container">
+    {%for camera in offlineCameras%}
+    <div class="card offline">{{camera.ip}}</div>
+    {%endfor%}
+
+    {%for camera in onlineCameras%}
+    <div class="card online"><a href="{%url 'view-feed' camera.id%}">{{camera.ip}}</a></div>
+    {%endfor%}
+    
+</div>
+</section>
+{%endblock%}

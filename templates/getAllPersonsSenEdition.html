@@ -1,0 +1,123 @@
+{%extends './base.html'%}
+{%block intStylesheets%}
+<link rel="stylesheet" href="/static/css/allPersons.css">{%endblock%}
+{%block title%}Human detection in CCTV{%endblock%}
+
+{%block content%}
+<section>
+    <h2>All detected People</h2>
+    <div class="searchForm">
+        <form action="/get-all-persons/" class="needs-validation" method="get">
+            <!-- {% csrf_token %} -->
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Start Date Time</label>
+                    <input type="datetime-local" class="form-control" name="startDateTime" id="startDateTime"
+                        placeholder="Start" value="{{searchedQuery.startDateTime}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">End Date Time</label>
+                    <input type="datetime-local" class="form-control" name="endDateTime" id="endDateTime"
+                        placeholder="End" value="{{searchedQuery.endDateTime}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Person Unique ID</label>
+                    <input type="number" class="form-control" name="personID" id="uid" placeholder="Enter Unique ID"
+                        value="{{searchedQuery.personID}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="conf_slider">Min. Confidence score<p id="sliderAmount">({{searchedQuery.confScore}}%)</p></label>
+                    <input id="conf_slider" name="confScore" type="range" min="0.0" max="100.0" step="0.01" value="{{searchedQuery.confScore}}">
+                    
+                </div>
+                <script>
+                    var slide = document.getElementById('conf_slider'),
+                    sliderDiv = document.getElementById("sliderAmount");
+
+                    slide.oninput = function() {
+                        sliderDiv.innerHTML = this.value + '%';
+                    }
+                </script>
+            </div>
+            <button style="float: right;" class="btn btn-primary" type="submit">Search</button>
+            <div class="searchedQuery">
+                {% if searchedQuery %}
+                <strong>Showing results for</strong>
+
+                {% if searchedQuery.startDateTime %}
+                <strong>Start Datetime:</strong> {{searchedQuery.startDateTime}}
+                {% endif %}
+
+                {% if searchedQuery.endDateTime %}
+                <strong>End Datetime:</strong> {{searchedQuery.endDateTime}}
+                {% endif %}
+
+                {% if searchedQuery.personID %}
+                <strong>Person ID:</strong> {{searchedQuery.personID}}
+                {% endif %}
+
+                {% if searchedQuery.confScore %}
+                <strong>Min. Confidence Score:</strong> {{searchedQuery.confScore}}%
+                {% endif %}
+
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <div class="detected-ppl-card-container">
+        {% if not persons %}
+        <h3>Sorry, But NO Person details matches your search!!!</h3>
+        {% else %}
+        {%for person in persons%}
+        <a href="{%url 'get-more-info-on-person' person.person_id%}" class="card-link">
+            <div class="card person-card">
+                <div class="card-img-container">
+                    <img src="{{ person.person_img.url }}" alt="Detected Person" />
+                </div>
+                <div class="card-text-container">
+                    <h4 class="card-title my-1">UID#: {{ person.person_id }} </h4> {% if person.camera_id %} Cam IP: {{ person.camera_id }} {% endif %}
+                    <p class="card-text">
+                        <i class="fa-solid fa-calendar-day"></i> {{ person.date_time.date }} <br>
+                        <i class="fa-solid fa-clock"></i> {{ person.date_time.time }} <br>
+                        Confidence score: {{ person.conf_score | truncatechars:7 }}
+                    </p>
+                    <a href="{%url 'get-more-info-on-person' person.person_id%}" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </a>
+        {%endfor%}
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="">
+            <div class="pagination text-center">
+                <div class="step-links">
+                    {% if persons.has_previous %}
+
+                    <a class="prev page-numbers" href="?{% if searchedQuery.confScore %}&confScore={{searchedQuery.confScore}}{% endif %}{% if searchedQuery.startDateTime %}&startDateTime={{searchedQuery.startDateTime}}{% endif %}{% if searchedQuery.endDateTime %}&endDateTime={{searchedQuery.endDateTime}}{% endif %}{% if searchedQuery.personID %}&personID={{searchedQuery.personID}}{% endif %}&page={{ persons.previous_page_number }}"><i
+                            class="fa fa-long-arrow-left"></i> Prev page</a>
+                    <a class="first page-numbers" href="?{% if searchedQuery.confScore %}&confScore={{searchedQuery.confScore}}{% endif %}{% if searchedQuery.startDateTime %}&startDateTime={{searchedQuery.startDateTime}}{% endif %}{% if searchedQuery.endDateTime %}&endDateTime={{searchedQuery.endDateTime}}{% endif %}{% if searchedQuery.personID %}&personID={{searchedQuery.personID}}{% endif %}&page=1">&laquo; First page</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ persons.number }} of {{ persons.paginator.num_pages }}
+                    </span>
+
+                    {% if persons.has_next %}
+
+                    <a class="next page-numbers" href="?{% if searchedQuery.confScore %}&confScore={{searchedQuery.confScore}}{% endif %}{% if searchedQuery.startDateTime %}&startDateTime={{searchedQuery.startDateTime}}{% endif %}{% if searchedQuery.endDateTime %}&endDateTime={{searchedQuery.endDateTime}}{% endif %}{% if searchedQuery.personID %}&personID={{searchedQuery.personID}}{% endif %}&page={{ persons.next_page_number }}">Next page <i
+                            class="fa fa-long-arrow-right"></i></a>
+                    <a class="last page-numbers" href="?{% if searchedQuery.confScore %}&confScore={{searchedQuery.confScore}}{% endif %}{% if searchedQuery.startDateTime %}&startDateTime={{searchedQuery.startDateTime}}{% endif %}{% if searchedQuery.endDateTime %}&endDateTime={{searchedQuery.endDateTime}}{% endif %}{% if searchedQuery.personID %}&personID={{searchedQuery.personID}}{% endif %}&page={{ persons.paginator.num_pages }}">Last page &raquo;</a>
+                    {% endif %}
+                </div>
+            </div>
+            </nav>
+        </div>
+
+</section>
+
+{%endblock%}

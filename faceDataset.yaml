@@ -1,0 +1,23 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+# COCO128 dataset https://www.kaggle.com/ultralytics/coco128 (first 128 images from COCO train2017) by Ultralytics
+# Example usage: python train.py --data coco128.yaml
+# parent
+# ├── yolov5
+# └── datasets
+#     └── coco128  ← downloads here (7 MB)
+
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: 'C:/Users/WS-AIML-ISE/Desktop/Minor Project - CCTV Research Project/Yolov5 - Face Detection(Training and Testing)/face-mask-dataset-yolo-format/dataset/images'  # dataset root dir
+
+
+train: 'C:/Users/WS-AIML-ISE/Desktop/Minor Project - CCTV Research Project/Yolov5 - Face Detection(Training and Testing)/face-mask-dataset-yolo-format/dataset/images/train'  # train images (relative to 'path') 128 images
+val: 'C:/Users/WS-AIML-ISE/Desktop/Minor Project - CCTV Research Project/Yolov5 - Face Detection(Training and Testing)/face-mask-dataset-yolo-format/dataset/images/valid'  # val images (relative to 'path') 128 images
+test: 'C:/Users/WS-AIML-ISE/Desktop/Minor Project - CCTV Research Project/Yolov5 - Face Detection(Training and Testing)/face-mask-dataset-yolo-format/dataset/images/test' # test images (optional)
+
+# Classes
+nc: 2  # number of classes
+names: ['no_mask', 'mask']  # class names
+
+# Download script/URL (optional)
+download: https://ultralytics.com/assets/coco128.zip

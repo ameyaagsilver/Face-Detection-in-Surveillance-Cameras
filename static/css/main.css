@@ -1,0 +1,219 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: aliceblue;
+    margin: 0px;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.8;
+}
+a:hover{
+    text-decoration: underline;
+    opacity: 1;
+    color: inherit;
+}
+
+.navigation-links{
+    margin:5px;
+    color: rgba(255, 255, 255);
+}
+
+.navigation-links:hover{
+    color: rgba(255, 255, 255, 1);
+    opacity: 1;
+}
+
+form{
+    margin: 5% 10%;
+    border: 1px solid rgb(0,0,0);
+    padding: 20px;
+}
+
+input{
+    border: 1px solid rgb(0, 0, 0);
+    padding: 7px;
+    margin: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+select{
+    border: 1px solid rgb(0, 0, 0);
+    padding: 7px;
+    margin: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+
+.messages{
+    border: none;
+}
+
+
+.head-info-container{
+    text-align: center;
+}
+
+
+.college-name{
+    margin: 15px;
+    color: rgb(39, 68, 126);
+}
+
+.header-banner{
+    height: 25px;
+    background-color: rgb(39, 68, 126);
+}
+
+.header-content{
+    display: grid;
+    grid-template-columns: 8% 85%;
+    margin: 5px;
+}
+
+nav{    
+    height: 100%;
+    background-color: rgb(39, 68, 126);
+    border-top: 1px solid rgb(255, 255, 255);
+    color: rgba(255, 255, 255, 1);
+}
+
+.content-block{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 100%;
+    min-height: 100%;
+}
+
+h1{
+    margin: 10px;
+    font-size: 3em;
+    text-align: center;
+}
+
+h2{
+    font-size: 2em;
+    margin: 10px;
+}
+
+.nav-title{
+    margin: 10px;
+    text-align: center;
+}
+
+main{
+    margin: 10px 0px;
+}
+
+.nav-links-container{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    list-style-type: none;
+    border-top: 1px solid rgb(204, 202, 202);
+}
+
+.visual-link{
+    opacity: 1;
+    color: rgba(4, 0, 255);
+}
+
+.fieldWrapper{
+    margin: 15px;
+}
+
+.field-label{
+    margin: 5px;
+}
+
+.user-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 35px;
+    background-color: rgb(214 216 219);
+}
+
+.user-details h2{
+    font-size:  1.5em;
+}
+
+.table-container{
+    margin: 5% 10%;
+}
+
+.cameras-display-container{
+    display: grid;
+    grid-column-gap: 10%;
+    grid-template-columns: auto auto auto;
+    margin: 2% 5%;
+}
+
+.card{
+    padding: 15px;
+    border: 1px solid rgb(0,0,0);
+    border-radius: 15px;
+    text-align: center;
+    margin: 20px 0px;
+}
+
+.online{
+    background-color: rgb(194 232 194);
+    display: block;
+}
+
+.offline{
+    animation: blinker 2s infinite;
+    display: block;
+}
+
+@keyframes blinker {
+    50%{
+        background-color: rgb(255 184 184)
+    }
+}
+
+.camera-info{
+    margin-left: 40px;
+}
+
+.camera-info div{
+    margin: 10px;
+}
+
+#video-feed{
+    width: 80%;
+    padding: 20px;
+    border: 1px double;
+}
+
+.video-feed-container{
+    text-align: center;
+}
+
+.cctv-icon{
+    width: 9%;
+}
+
+.camera-delete-form{
+    display: inline-block;
+    margin: 0px 0px 0px 20px;
+    border: none;
+}
+
+.card-img-container{
+    height: 200px;   
+}
+
+.card-img-container > img{
+    height: 100%;   
+}
+
+.bg-light {
+    background-color: #11273e!important;
+    color: #b9b9b9!important;
+}
