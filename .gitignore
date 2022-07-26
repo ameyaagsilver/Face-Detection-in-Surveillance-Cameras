@@ -2,5 +2,5 @@ db*
 et*
 *xls
 *xlsx
-*pt
+*.pt
 runs/

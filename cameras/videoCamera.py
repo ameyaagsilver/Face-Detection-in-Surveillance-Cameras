@@ -46,7 +46,6 @@ from PIL import Image
 from cctv.settings import BASE_DIR, MEDIA_ROOT
 
 output='inference/output'
-# source='rtsp://username:password@' + str(ip) + ':554/uservid=False,=admin_password=@dmin123_channel=channel_number_stream=1.sdp'
 # path = []
 agnostic_nms=False
 augment=False
